@@ -1,6 +1,8 @@
 # redux-typed-action
 
-Typesafely create actions and reducers for [Redux](https://github.com/reactjs/redux) in TypeScript.
+Typesafely create actions and reducers for [Redux](https://github.com/reactjs/redux) in TypeScript.  
+Using this library possibly makes modules [Ducks](https://github.com/erikras/ducks-modular-redux)-like.
+
 
 ## Usage
 
