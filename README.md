@@ -4,6 +4,8 @@ Typesafely create actions and reducers for [Redux](https://github.com/reactjs/re
 
 ## Usage
 
+Create action creators and a reducer using `createAction` and `createReducer` provided by redux-typed-action.
+
 ```typescript
 import { createAction, createReducer } from 'redux-typed-action'
 
@@ -22,6 +24,8 @@ console.log(counterActions.add(100))    // { type: 'ADD', payload: 100 }
 // counterActions.increment(100)        // compile error
 // counterActions.add('100')            // compile error
 ```
+
+And use them normally with `combineReducers`, `createStore`, `bindActionCreators` of Redux.
 
 ```typescript
 import { bindActionCreators, combineReducers, createStore } from 'redux'
@@ -50,8 +54,8 @@ console.log(store.getState())     // { counter: 1 }
 actions.counter.add(100)
 console.log(store.getState())     // { counter: 101 }
 
-// actions.counter.increment(100) // compile error
-// actions.counter.add('100')     // compile error
+// actions.counter.increment(100) // compile error: payload of increment() requires undefined
+// actions.counter.add('100')     // compile error: payload of add() requires number
 ```
 
 ## API
