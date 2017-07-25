@@ -1,0 +1,9 @@
+{
+  "editor.tabSize": 2,
+  "search.exclude": {
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/lib/**": true,
+    "**/es/**": true
+  }
+}
