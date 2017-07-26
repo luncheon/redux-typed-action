@@ -10,9 +10,9 @@
     "build": "npm run lint && npm run build:lib && npm run build:es",
     "build:lib": "tsc -p . -d",
     "build:es": "tsc -p . -t ES2015 --outDir ./es",
-    "clean": "rimraf lib es",
+    "clean": "rimraf lib es coverage",
     "lint": "tslint -p . --type-check",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [
     "redux",
@@ -21,8 +21,10 @@
   "author": "",
   "license": "WTFPL",
   "devDependencies": {
+    "jest": "^20.0.4",
     "redux": "^3.7.2",
     "rimraf": "^2.6.1",
+    "ts-jest": "^20.0.7",
     "tslint": "^5.5.0",
     "typescript": "^2.4.2"
   }
