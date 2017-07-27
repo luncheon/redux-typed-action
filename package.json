@@ -1,22 +1,29 @@
 {
   "name": "redux-typed-action",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Typesafely create actions and reducers for Redux in TypeScript",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "module": "./es/index.js",
   "jsnext:main": "./es/index.js",
+  "files": [
+    "src",
+    "lib",
+    "es"
+  ],
   "scripts": {
     "build": "npm run lint && npm run build:lib && npm run build:es",
     "build:lib": "tsc -p . -d",
     "build:es": "tsc -p . -t ES2015 --outDir ./es",
     "clean": "rimraf lib es coverage",
     "lint": "tslint -p . --type-check",
-    "test": "jest"
+    "test": "jest",
+    "prepublish": "npm run clean && npm run build"
   },
   "keywords": [
     "redux",
-    "typescript"
+    "typescript",
+    "ducks"
   ],
   "author": "",
   "license": "WTFPL",
