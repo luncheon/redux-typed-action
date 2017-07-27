@@ -120,7 +120,7 @@ I think this way is safe, efficient and easy to maintain.
 
 ### `createAction<State, Payload, Metadata>(type: string, handler: (State, Payload, Metadata) => State, metadataFactory: Payload => Metadata) => ActionCreator<State, Payload, Metadata>`
 
-Returns a new action creator having `type` and `handler`.
+Returns a new action creator.
 
 ### `createReducer<State>(actions: Record<string, ActionCreator<State, any, any>>, initialState: State) => Reducer<State>`
 
