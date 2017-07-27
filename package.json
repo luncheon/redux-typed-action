@@ -20,6 +20,7 @@
   ],
   "author": "",
   "license": "WTFPL",
+  "repository": "luncheon/redux-typed-action",
   "devDependencies": {
     "jest": "^20.0.4",
     "redux": "^3.7.2",
