@@ -1,6 +1,6 @@
-export const createAction = (type, handler, createMetadata) => {
-    const actionCreator = (createMetadata
-        ? (payload) => ({ type, payload, meta: createMetadata(payload) })
+export const createAction = (type, handler, metadataFactory) => {
+    const actionCreator = (metadataFactory
+        ? (payload) => ({ type, payload, meta: metadataFactory(payload) })
         : (payload) => ({ type, payload }));
     actionCreator.type = type;
     actionCreator.handler = handler;

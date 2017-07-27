@@ -19,9 +19,9 @@ export interface SimpleActionCreator<State> extends PayloadlessActionCreator<Sta
     handler: (state: State) => State;
 }
 export declare const createAction: {
-    <State, Payload, Metadata>(type: string, handler: Handler<State, Payload, Metadata>, createMetadata: (payload: Payload) => Metadata): ActionCreator<State, Payload, Metadata>;
+    <State, Payload, Metadata>(type: string, handler: Handler<State, Payload, Metadata>, metadataFactory: (payload: Payload) => Metadata): ActionCreator<State, Payload, Metadata>;
     <State, Payload>(type: string, handler: Handler<State, Payload, undefined>): MetadatalessActionCreator<State, Payload>;
-    <State, Metadata>(type: string, handler: Handler<State, undefined, Metadata>, createMetadata: () => Metadata): PayloadlessActionCreator<State, Metadata>;
+    <State, Metadata>(type: string, handler: Handler<State, undefined, Metadata>, metadataFactory: () => Metadata): PayloadlessActionCreator<State, Metadata>;
     <State>(type: string, handler: Handler<State, undefined, undefined>): SimpleActionCreator<State>;
 };
 export declare const createReducer: <State>(actions: Record<string, ActionCreator<State, any, any>>, initialState: State) => <A extends {
