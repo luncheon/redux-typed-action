@@ -23,8 +23,8 @@ export default createReducer(counterActions, 0)
 
 console.log(counterActions.increment()) // { type: 'INCREMENT' }
 console.log(counterActions.add(100))    // { type: 'ADD', payload: 100 }
-// counterActions.increment(100)        // compile error
-// counterActions.add('100')            // compile error
+// counterActions.increment(100)        // compile error: payload of increment() requires undefined
+// counterActions.add('100')            // compile error: payload of add() requires number
 ```
 
 And use them normally with `combineReducers`, `createStore`, `bindActionCreators` of Redux.
@@ -60,9 +60,65 @@ console.log(store.getState())     // { counter: 101 }
 // actions.counter.add('100')     // compile error: payload of add() requires number
 ```
 
+## Why?
+
+Using Redux requires some boilerplate code.
+In TypeScript, redundant code increases.  
+The reducer have to identify the **type** of the action by the `type` property.
+Therefore, **each action should be typed explicitly** and that type will be shared with the action creator and the reducer.
+
+```typescript
+// cf. https://stackoverflow.com/questions/35482241/how-to-type-redux-actions-and-redux-reducers-in-typescript
+const INCREMENT = 'INCREMENT'
+const DECREMENT = 'DECREMENT'
+const ADD = 'ADD'
+
+interface IncrementAction {
+  type: typeof INCREMENT
+}
+interface DecrementAction {
+  type: typeof DECREMENT
+}
+interface AddAction {
+  type: typeof ADD
+  payload: number
+}
+
+type Action = IncrementAction | DecrementAction | AddAction
+
+const increment: () => IncrementAction = () => ({ type: INCREMENT })
+const decrement: () => DecrementAction = () => ({ type: DECREMENT })
+const add: (payload: number) => AddAction = payload => ({ type: ADD, payload })
+
+const reducer = (state: number, action: Action) => {
+  switch (action.type) {
+    case INCREMENT:
+      return state + 1
+    case DECREMENT:
+      return state - 1
+    case ADD:
+      return state + action.payload
+    default:
+      return state
+  }
+}
+```
+
+But it is painful to define type for each action.
+
+This library offers you to declare type of payload as an **inline type literal** and use that payload immediately once.
+
+```typescript
+const someAction = createAction<State, { prop1: Prop1, prop2?: Prop2 }>('SOME_ACTION', (state, { prop1, prop2 }) => ({ ...state, prop1, prop2 }))
+```
+
+The created action creator requires a parameter of the type declared above.
+The compiler and IDE will help you.
+I think this way is safe, efficient and easy to maintain.
+
 ## API
 
-### `createAction<State, Payload, Metadata>(type: string, handler: (state: State, payload: Payload, metadata: Metadata) => State, createMetadata: (payload: Payload) => Metadata) => ActionCreator<State, Payload, Metadata>`
+### `createAction<State, Payload, Metadata>(type: string, handler: (State, Payload, Metadata) => State, metadataFactory: Payload => Metadata) => ActionCreator<State, Payload, Metadata>`
 
 Returns a new action creator having `type` and `handler`.
 
